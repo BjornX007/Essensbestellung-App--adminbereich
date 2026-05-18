@@ -34,3 +34,20 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+src/components/
+  layout/     → sidebar, navbar, dashboard layout
+  ui/         → buttons, inputs, cards (reusable base)
+  stats/      → stat cards, KPI boxes
+  charts/     → charts (later)
+  forms/      → form components
+  table/      → data tables
+  modals/     → dialogs, popups
+
+  app/admin/settings/
+├── page.tsx                     ← full-screen hub with 4 cards
+├── business-profile/page.tsx    ← 3-step register flow → edit view
+├── auth-security/page.tsx       ← password + 2FA + sessions
+├── contact-support/page.tsx     ← quick links, FAQ accordion, message form
+└── danger-zone/page.tsx         ← pause orders, export, reset menu, delete

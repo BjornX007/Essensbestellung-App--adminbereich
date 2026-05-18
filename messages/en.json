@@ -1,0 +1,352 @@
+{
+  "menu": {
+    "title": "Menu & Products",
+    "backToDashboard": "Dashboard",
+    "newCategory": "New category",
+    "addCategory": "Add category",
+    "categories": "Categories",
+    "noCategories": "No categories yet.\nCreate your first one.",
+    "items": "items",
+    "hidden": "Hidden",
+    "edit": "Edit",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "save": "Save changes",
+    "products": "Products",
+    "addProduct": "Add product",
+    "noProductsTitle": "No products yet",
+    "noProductsDesc": "Add your first item to",
+    "noCatTitle": "No category selected",
+    "noCatDesc": "Create a category from the sidebar to start adding products.",
+    "featured": "Featured",
+    "unavailable": "Unavailable",
+    "catModal": {
+      "titleNew": "New category",
+      "titleEdit": "Edit category",
+      "sub": "Categories group your menu items.",
+      "name": "Name *",
+      "namePlaceholder": "e.g. Starters",
+      "slug": "Slug *",
+      "slugPlaceholder": "starters",
+      "slugHint": "Used in URLs — auto-generated from name.",
+      "description": "Description",
+      "descPlaceholder": "Short description…",
+      "sortOrder": "Sort order",
+      "visible": "Visible on menu",
+      "visibleDesc": "Hidden categories won't appear to customers.",
+      "createBtn": "Create category",
+      "nameRequired": "Name is required"
+    },
+    "prodModal": {
+      "titleNew": "New product",
+      "titleEdit": "Edit product",
+      "sub": "Add a dish or drink to this category.",
+      "name": "Name *",
+      "namePlaceholder": "e.g. Margherita Pizza",
+      "slug": "Slug *",
+      "slugPlaceholder": "margherita-pizza",
+      "description": "Description",
+      "descPlaceholder": "Ingredients, allergens…",
+      "price": "Price (€) *",
+      "pricePlaceholder": "12.90",
+      "sortOrder": "Sort order",
+      "allergens": "Allergens",
+      "noAllergens": "No allergens configured.",
+      "additives": "Additives",
+      "noAdditives": "No additives configured.",
+      "available": "Available",
+      "availableDesc": "Customers can order this item.",
+      "featuredLabel": "Featured",
+      "featuredDesc": "Highlighted on your homepage.",
+      "addBtn": "Add product",
+      "nameRequired": "Name is required",
+      "priceRequired": "Price is required"
+    },
+    "confirm": {
+      "catDesc": "This will also delete all products in this category. This cannot be undone.",
+      "prodDesc": "This product will be permanently removed."
+    },
+    "toast": {
+      "catUpdated": "Category updated",
+      "catCreated": "Category created",
+      "catDeleted": "Category deleted",
+      "prodUpdated": "Product updated",
+      "prodAdded": "Product added",
+      "prodDeleted": "Product deleted",
+      "failedLoad": "Failed to load",
+      "failedDelete": "Failed to delete"
+    }
+  },
+  "nav": {
+    "overview": "Overview",
+    "orders": "Orders",
+    "menu": "Menu",
+    "settings": "Settings",
+    "adminPanel": "Admin Panel",
+    "guest": "Guest"
+  },
+"settings": {
+  "title": "Settings",
+  "sub": "Manage your account, security and restaurant preferences.",
+  "backToDashboard": "Dashboard",
+  "sections": {
+    "restaurant": {
+      "label": "Restaurant",
+      "businessProfile": { "label": "Business profile", "desc": "Name, address, logo and public-facing info" },
+      "menu": { "label": "Menu & products", "desc": "Categories, items, prices and availability" },
+      "openingHours": { "label": "Opening hours", "desc": "Set your weekly schedule and closures" }
+    },
+    "ordersPayments": {
+      "label": "Orders & payments",
+      "paypal": { "label": "PayPal integration", "desc": "Connect your PayPal account and webhooks" },
+      "orders": { "label": "Order settings", "desc": "Prep time, order limits and notifications" }
+    },
+    "account": {
+      "label": "Account",
+      "authSecurity": { "label": "Auth & security", "desc": "Password, two-factor and active sessions" },
+      "contactSupport": { "label": "Contact & support", "desc": "Reach support or browse documentation" },
+      "dangerZone": { "label": "Danger zone", "desc": "Pause ordering, export data or delete account" }
+    }
+  },
+  "badges": {
+    "live": "Live",
+    "notConnected": "Not connected",
+    "destructive": "Destructive"
+  }
+},
+"bp": {
+  "title": "Business profile",
+  "backToSettings": "Settings",
+  "loading": "Loading…",
+  "saving": "Saving…",
+  "saved": "Saved",
+  "saveChanges": "Save changes",
+  "changesSaved": "Changes saved",
+  "continue": "Continue",
+  "back": "Back",
+  "requiredNote": "* Required fields",
+  "errors": {
+    "generic": "Something went wrong",
+    "saveFailed": "Save failed"
+  },
+  "register": {
+    "heading": "Set up your profile",
+    "sub": "Tell customers who you are — this powers your public-facing site.",
+    "saveBtn": "Save & finish →"
+  },
+  "edit": {
+    "sub": "Your public-facing restaurant details. Changes go live immediately."
+  },
+  "steps": {
+    "identity": "Identity",
+    "location": "Location",
+    "branding": "Branding"
+  },
+  "sections": {
+    "identity": {
+      "title": "Identity",
+      "sub": "Your restaurant's name and story — shown front and centre on your site."
+    },
+    "location": {
+      "title": "Location & Contact",
+      "sub": "Where customers can find you and how they can get in touch."
+    },
+    "branding": {
+      "title": "Branding",
+      "sub": "Your logo and hero image define the first impression of your restaurant."
+    },
+    "social": {
+      "title": "Social links",
+      "sub": "Connect your social accounts so customers can follow and share."
+    }
+  },
+  "fields": {
+    "name": {
+      "label": "Restaurant name",
+      "placeholder": "e.g. Fuoco Pizza Co."
+    },
+    "tagline": {
+      "label": "Tagline",
+      "placeholder": "Short tagline shown on your homepage",
+      "hint": "Keep it under 10 words. It appears as a headline on your public site — make it memorable."
+    },
+    "description": {
+      "label": "About / Description",
+      "placeholder": "Your story — shown on the About section.",
+      "hint": "2–4 sentences works best. Tell customers what makes your place special — your origin story, cuisine style, or the experience they can expect."
+    },
+    "address": {
+      "label": "Street address",
+      "placeholder": "e.g. Hauptstraße 12"
+    },
+    "city": {
+      "label": "City",
+      "placeholder": "e.g. Berlin"
+    },
+    "postalCode": {
+      "label": "Postal code",
+      "placeholder": "e.g. 10115"
+    },
+    "phone": {
+      "label": "Phone",
+      "placeholder": "+49 30 …"
+    },
+    "email": {
+      "label": "Public email",
+      "placeholder": "hello@yourplace.com"
+    },
+    "logo": {
+      "label": "Logo",
+      "hint": "Use a square image (1:1) with a transparent background, at least 400×400 px. PNG or SVG preferred. Shown in the header and on receipts."
+    },
+    "hero": {
+      "label": "Hero image",
+      "hint": "This is the large banner photo at the top of your public menu page. Use a wide, high-quality shot (ideally 1600×900 px or wider) of your food, interior, or team — something that instantly captures the atmosphere of your restaurant."
+    },
+    "website": {
+      "placeholder": "yourrestaurant.com"
+    }
+  }
+},
+  
+  "navOrders": {
+    "incoming": "Incoming",
+    "preparing": "Preparing",
+    "dispatch": "Dispatch",
+    "history": "History"
+  },
+  "topbar": {
+    "syncing": "Syncing…",
+    "live": "Live",
+    "reconnecting": "Reconnecting"
+  },
+  "incoming": {
+    "title": "Incoming Orders",
+    "live": "Live",
+    "noOrders": "No incoming orders",
+    "noOrdersSubtitle": "New orders will appear here in real-time"
+  },
+  "preparing": {
+    "title": "In Preparation",
+    "active": "active",
+    "noOrders": "Nothing in preparation",
+    "noOrdersSubtitle": "Accept orders from Incoming to start preparing"
+  },
+  "dispatch": {
+    "title": "Dispatch",
+    "readyTitle": "Ready for Dispatch",
+    "onTheWayTitle": "On the Way",
+    "noOrders": "Nothing to dispatch",
+    "noOrdersSubtitle": "Orders ready for delivery will appear here"
+  },
+  "orderCard": {
+    "guest": "Guest",
+    "item": "item",
+    "items": "items",
+    "moreItems": "more",
+    "prepTime": "Prep",
+    "confirm": "Confirm",
+    "startPreparing": "Start Preparing",
+    "markReady": "Mark as Ready",
+    "dispatch": "Dispatch",
+    "markDelivered": "Mark Delivered",
+    "payment_card": "Card",
+    "payment_cash_on_delivery": "Cash on Delivery",
+    "payment_paypal": "PayPal"
+  },
+  "orderType": {
+    "dine_in": "Dine-in",
+    "delivery": "Delivery",
+    "pickup": "Pickup"
+  },
+  "status": {
+    "pending": "Pending",
+    "confirmed": "Confirmed",
+    "preparing": "Preparing",
+    "ready": "Ready",
+    "dispatched": "Dispatched",
+    "out_for_delivery": "Out for Delivery",
+    "delivered": "Delivered",
+    "cancelled": "Cancelled"
+  },
+  "toast": {
+    "newOrder": "New order #{number} — {name}",
+    "loadError": "Failed to load orders. Retrying…",
+    "updateError": "Error: {message}"
+  },
+  "time": {
+    "secsAgo": "{n}s ago",
+    "minsAgo": "{n}m ago",
+    "hoursAgo": "{n}h ago"
+  },
+  "dashboard": {
+    "brand": "Restaurant Admin",
+    "title": "Orders Dashboard",
+    "subtitle": "All-time revenue & order analytics",
+    "error_prefix": "⚠",
+    "filter_label": "Filter",
+    "orders_singular": "order",
+    "orders_plural": "orders",
+    "orders_shown": "orders shown",
+    "no_orders": "No orders match this filter",
+    "free": "free",
+
+    "kpi": {
+      "total_revenue": "Total Revenue",
+      "paypal": "PayPal",
+      "cash_on_delivery": "Cash on Delivery",
+      "card": "Card"
+    },
+
+    "status": {
+      "pending": "Pending",
+      "processing": "Processing",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+
+    "payment": {
+      "paypal": "PayPal",
+      "cash_on_delivery": "Cash on delivery",
+      "card": "Card"
+    },
+
+    "filter": {
+      "all": "All",
+      "paypal": "PayPal",
+      "cash_on_delivery": "Cash on Delivery",
+      "card": "Card",
+      "pending": "Pending",
+      "processing": "Processing",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+
+    "table": {
+      "order": "Order",
+      "customer": "Customer",
+      "date": "Date",
+      "status": "Status",
+      "payment": "Payment",
+      "type": "Type",
+      "subtotal": "Subtotal",
+      "delivery": "Delivery",
+      "tax": "Tax",
+      "total": "Total"
+    },
+
+    "footer": {
+      "subtotal": "Subtotal",
+      "delivery": "Delivery",
+      "tax": "Tax",
+      "grand_total": "Grand Total"
+    },
+
+    "errors": {
+      "summary": "Failed to load summary",
+      "orders": "Failed to load orders"
+    }
+  }
+
+}
+
