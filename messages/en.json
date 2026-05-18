@@ -85,130 +85,83 @@
     "adminPanel": "Admin Panel",
     "guest": "Guest"
   },
-"settings": {
-  "title": "Settings",
-  "sub": "Manage your account, security and restaurant preferences.",
-  "backToDashboard": "Dashboard",
-  "sections": {
-    "restaurant": {
-      "label": "Restaurant",
-      "businessProfile": { "label": "Business profile", "desc": "Name, address, logo and public-facing info" },
-      "menu": { "label": "Menu & products", "desc": "Categories, items, prices and availability" },
-      "openingHours": { "label": "Opening hours", "desc": "Set your weekly schedule and closures" }
+  "settings": {
+    "title": "Settings",
+    "sub": "Manage your account, security and restaurant preferences.",
+    "backToDashboard": "Dashboard",
+    "sections": {
+      "restaurant": {
+        "label": "Restaurant",
+        "businessProfile": { "label": "Business profile", "desc": "Name, address, logo and public-facing info" },
+        "menu": { "label": "Menu & products", "desc": "Categories, items, prices and availability" },
+        "openingHours": { "label": "Opening hours", "desc": "Set your weekly schedule and closures" }
+      },
+      "ordersPayments": {
+        "label": "Orders & payments",
+        "paypal": { "label": "PayPal integration", "desc": "Connect your PayPal account and webhooks" },
+        "deliverySettings": { "label": "Delivery settings", "desc": "Zones, fees and minimum order amounts" }
+      },
+      "account": {
+        "label": "Account",
+        "authSecurity": { "label": "Auth & security", "desc": "Password, two-factor and active sessions" },
+        "contactSupport": { "label": "Contact & support", "desc": "Reach support or browse documentation" },
+        "dangerZone": { "label": "Danger zone", "desc": "Pause ordering, export data or delete account" }
+      }
     },
-    "ordersPayments": {
-      "label": "Orders & payments",
-      "paypal": { "label": "PayPal integration", "desc": "Connect your PayPal account and webhooks" },
-      "orders": { "label": "Order settings", "desc": "Prep time, order limits and notifications" }
-    },
-    "account": {
-      "label": "Account",
-      "authSecurity": { "label": "Auth & security", "desc": "Password, two-factor and active sessions" },
-      "contactSupport": { "label": "Contact & support", "desc": "Reach support or browse documentation" },
-      "dangerZone": { "label": "Danger zone", "desc": "Pause ordering, export data or delete account" }
+    "badges": {
+      "live": "Live",
+      "notConnected": "Not connected",
+      "destructive": "Destructive"
     }
   },
-  "badges": {
-    "live": "Live",
-    "notConnected": "Not connected",
-    "destructive": "Destructive"
-  }
-},
-"bp": {
-  "title": "Business profile",
-  "backToSettings": "Settings",
-  "loading": "Loading…",
-  "saving": "Saving…",
-  "saved": "Saved",
-  "saveChanges": "Save changes",
-  "changesSaved": "Changes saved",
-  "continue": "Continue",
-  "back": "Back",
-  "requiredNote": "* Required fields",
-  "errors": {
-    "generic": "Something went wrong",
-    "saveFailed": "Save failed"
-  },
-  "register": {
-    "heading": "Set up your profile",
-    "sub": "Tell customers who you are — this powers your public-facing site.",
-    "saveBtn": "Save & finish →"
-  },
-  "edit": {
-    "sub": "Your public-facing restaurant details. Changes go live immediately."
-  },
-  "steps": {
-    "identity": "Identity",
-    "location": "Location",
-    "branding": "Branding"
-  },
-  "sections": {
-    "identity": {
-      "title": "Identity",
-      "sub": "Your restaurant's name and story — shown front and centre on your site."
+  "bp": {
+    "title": "Business profile",
+    "backToSettings": "Settings",
+    "loading": "Loading…",
+    "saving": "Saving…",
+    "saved": "Saved",
+    "saveChanges": "Save changes",
+    "changesSaved": "Changes saved",
+    "continue": "Continue",
+    "back": "Back",
+    "requiredNote": "* Required fields",
+    "errors": {
+      "generic": "Something went wrong",
+      "saveFailed": "Save failed"
     },
-    "location": {
-      "title": "Location & Contact",
-      "sub": "Where customers can find you and how they can get in touch."
+    "register": {
+      "heading": "Set up your profile",
+      "sub": "Tell customers who you are — this powers your public-facing site.",
+      "saveBtn": "Save & finish →"
     },
-    "branding": {
-      "title": "Branding",
-      "sub": "Your logo and hero image define the first impression of your restaurant."
+    "edit": {
+      "sub": "Your public-facing restaurant details. Changes go live immediately."
     },
-    "social": {
-      "title": "Social links",
-      "sub": "Connect your social accounts so customers can follow and share."
+    "steps": {
+      "identity": "Identity",
+      "location": "Location",
+      "branding": "Branding"
+    },
+    "sections": {
+      "identity": { "title": "Identity", "sub": "Your restaurant's name and story — shown front and centre on your site." },
+      "location": { "title": "Location & Contact", "sub": "Where customers can find you and how they can get in touch." },
+      "branding": { "title": "Branding", "sub": "Your logo and hero image define the first impression of your restaurant." },
+      "social": { "title": "Social links", "sub": "Connect your social accounts so customers can follow and share." }
+    },
+    "fields": {
+      "name": { "label": "Restaurant name", "placeholder": "e.g. Fuoco Pizza Co." },
+      "tagline": { "label": "Tagline", "placeholder": "Short tagline shown on your homepage", "hint": "Keep it under 10 words. It appears as a headline on your public site — make it memorable." },
+      "description": { "label": "About / Description", "placeholder": "Your story — shown on the About section.", "hint": "2–4 sentences works best. Tell customers what makes your place special — your origin story, cuisine style, or the experience they can expect." },
+      "address": { "label": "Street address", "placeholder": "e.g. Hauptstraße 12" },
+      "city": { "label": "City", "placeholder": "e.g. Berlin" },
+      "postalCode": { "label": "Postal code", "placeholder": "e.g. 10115" },
+      "phone": { "label": "Phone", "placeholder": "+49 30 …" },
+      "email": { "label": "Public email", "placeholder": "hello@yourplace.com" },
+      "logo": { "label": "Logo", "hint": "Use a square image (1:1) with a transparent background, at least 400×400 px. PNG or SVG preferred. Shown in the header and on receipts." },
+      "hero": { "label": "Hero image", "hint": "This is the large banner photo at the top of your public menu page. Use a wide, high-quality shot (ideally 1600×900 px or wider) of your food, interior, or team — something that instantly captures the atmosphere of your restaurant." },
+      "website": { "placeholder": "yourrestaurant.com" }
     }
   },
-  "fields": {
-    "name": {
-      "label": "Restaurant name",
-      "placeholder": "e.g. Fuoco Pizza Co."
-    },
-    "tagline": {
-      "label": "Tagline",
-      "placeholder": "Short tagline shown on your homepage",
-      "hint": "Keep it under 10 words. It appears as a headline on your public site — make it memorable."
-    },
-    "description": {
-      "label": "About / Description",
-      "placeholder": "Your story — shown on the About section.",
-      "hint": "2–4 sentences works best. Tell customers what makes your place special — your origin story, cuisine style, or the experience they can expect."
-    },
-    "address": {
-      "label": "Street address",
-      "placeholder": "e.g. Hauptstraße 12"
-    },
-    "city": {
-      "label": "City",
-      "placeholder": "e.g. Berlin"
-    },
-    "postalCode": {
-      "label": "Postal code",
-      "placeholder": "e.g. 10115"
-    },
-    "phone": {
-      "label": "Phone",
-      "placeholder": "+49 30 …"
-    },
-    "email": {
-      "label": "Public email",
-      "placeholder": "hello@yourplace.com"
-    },
-    "logo": {
-      "label": "Logo",
-      "hint": "Use a square image (1:1) with a transparent background, at least 400×400 px. PNG or SVG preferred. Shown in the header and on receipts."
-    },
-    "hero": {
-      "label": "Hero image",
-      "hint": "This is the large banner photo at the top of your public menu page. Use a wide, high-quality shot (ideally 1600×900 px or wider) of your food, interior, or team — something that instantly captures the atmosphere of your restaurant."
-    },
-    "website": {
-      "placeholder": "yourrestaurant.com"
-    }
-  }
-},
-  
   "navOrders": {
     "incoming": "Incoming",
     "preparing": "Preparing",
@@ -290,27 +243,23 @@
     "orders_shown": "orders shown",
     "no_orders": "No orders match this filter",
     "free": "free",
-
     "kpi": {
       "total_revenue": "Total Revenue",
       "paypal": "PayPal",
       "cash_on_delivery": "Cash on Delivery",
       "card": "Card"
     },
-
     "status": {
       "pending": "Pending",
       "processing": "Processing",
       "completed": "Completed",
       "cancelled": "Cancelled"
     },
-
     "payment": {
       "paypal": "PayPal",
       "cash_on_delivery": "Cash on delivery",
       "card": "Card"
     },
-
     "filter": {
       "all": "All",
       "paypal": "PayPal",
@@ -321,7 +270,6 @@
       "completed": "Completed",
       "cancelled": "Cancelled"
     },
-
     "table": {
       "order": "Order",
       "customer": "Customer",
@@ -334,19 +282,15 @@
       "tax": "Tax",
       "total": "Total"
     },
-
     "footer": {
       "subtotal": "Subtotal",
       "delivery": "Delivery",
       "tax": "Tax",
       "grand_total": "Grand Total"
     },
-
     "errors": {
       "summary": "Failed to load summary",
       "orders": "Failed to load orders"
     }
   }
-
 }
-

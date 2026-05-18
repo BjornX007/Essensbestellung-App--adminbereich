@@ -86,127 +86,82 @@
     "guest": "Gast"
   },
   "settings": {
-  "title": "Einstellungen",
-  "sub": "Verwalte dein Konto, Sicherheit und Restaurant-Einstellungen.",
-  "backToDashboard": "Dashboard",
-  "sections": {
-    "restaurant": {
-      "label": "Restaurant",
-      "businessProfile": { "label": "Unternehmensprofil", "desc": "Name, Adresse, Logo und öffentliche Informationen" },
-      "menu": { "label": "Speisekarte & Produkte", "desc": "Kategorien, Artikel, Preise und Verfügbarkeit" },
-      "openingHours": { "label": "Öffnungszeiten", "desc": "Wochenplan und Schließzeiten festlegen" }
+    "title": "Einstellungen",
+    "sub": "Verwalte dein Konto, Sicherheit und Restaurant-Einstellungen.",
+    "backToDashboard": "Dashboard",
+    "sections": {
+      "restaurant": {
+        "label": "Restaurant",
+        "businessProfile": { "label": "Unternehmensprofil", "desc": "Name, Adresse, Logo und öffentliche Informationen" },
+        "menu": { "label": "Speisekarte & Produkte", "desc": "Kategorien, Artikel, Preise und Verfügbarkeit" },
+        "openingHours": { "label": "Öffnungszeiten", "desc": "Wochenplan und Schließzeiten festlegen" }
+      },
+      "ordersPayments": {
+        "label": "Bestellungen & Zahlungen",
+        "paypal": { "label": "PayPal-Integration", "desc": "PayPal-Konto und Webhooks verbinden" },
+        "deliverySettings": { "label": "Liefereinstellungen", "desc": "Zonen, Gebühren und Mindestbestellwerte" }
+      },
+      "account": {
+        "label": "Konto",
+        "authSecurity": { "label": "Auth & Sicherheit", "desc": "Passwort, Zwei-Faktor und aktive Sitzungen" },
+        "contactSupport": { "label": "Kontakt & Support", "desc": "Support erreichen oder Dokumentation durchsuchen" },
+        "dangerZone": { "label": "Gefahrenzone", "desc": "Bestellungen pausieren, Daten exportieren oder Konto löschen" }
+      }
     },
-    "ordersPayments": {
-      "label": "Bestellungen & Zahlungen",
-      "paypal": { "label": "PayPal-Integration", "desc": "PayPal-Konto und Webhooks verbinden" },
-      "orders": { "label": "Bestelleinstellungen", "desc": "Zubereitungszeit, Bestelllimits und Benachrichtigungen" }
-    },
-    "account": {
-      "label": "Konto",
-      "authSecurity": { "label": "Auth & Sicherheit", "desc": "Passwort, Zwei-Faktor und aktive Sitzungen" },
-      "contactSupport": { "label": "Kontakt & Support", "desc": "Support erreichen oder Dokumentation durchsuchen" },
-      "dangerZone": { "label": "Gefahrenzone", "desc": "Bestellungen pausieren, Daten exportieren oder Konto löschen" }
+    "badges": {
+      "live": "Aktiv",
+      "notConnected": "Nicht verbunden",
+      "destructive": "Destruktiv"
     }
   },
-  "badges": {
-    "live": "Aktiv",
-    "notConnected": "Nicht verbunden",
-    "destructive": "Destruktiv"
-  }
-}, "bp": {
-  "title": "Unternehmensprofil",
-  "backToSettings": "Einstellungen",
-  "loading": "Wird geladen…",
-  "saving": "Wird gespeichert…",
-  "saved": "Gespeichert",
-  "saveChanges": "Änderungen speichern",
-  "changesSaved": "Änderungen gespeichert",
-  "continue": "Weiter",
-  "back": "Zurück",
-  "requiredNote": "* Pflichtfelder",
-  "errors": {
-    "generic": "Etwas ist schiefgelaufen",
-    "saveFailed": "Speichern fehlgeschlagen"
-  },
-  "register": {
-    "heading": "Profil einrichten",
-    "sub": "Erzähl Kunden, wer du bist — das steuert deine öffentliche Seite.",
-    "saveBtn": "Speichern & abschließen →"
-  },
-  "edit": {
-    "sub": "Deine öffentlichen Restaurantdaten. Änderungen werden sofort wirksam."
-  },
-  "steps": {
-    "identity": "Identität",
-    "location": "Standort",
-    "branding": "Branding"
-  },
-  "sections": {
-    "identity": {
-      "title": "Identität",
-      "sub": "Name und Geschichte deines Restaurants — auf deiner Seite prominent angezeigt."
+  "bp": {
+    "title": "Unternehmensprofil",
+    "backToSettings": "Einstellungen",
+    "loading": "Wird geladen…",
+    "saving": "Wird gespeichert…",
+    "saved": "Gespeichert",
+    "saveChanges": "Änderungen speichern",
+    "changesSaved": "Änderungen gespeichert",
+    "continue": "Weiter",
+    "back": "Zurück",
+    "requiredNote": "* Pflichtfelder",
+    "errors": {
+      "generic": "Etwas ist schiefgelaufen",
+      "saveFailed": "Speichern fehlgeschlagen"
     },
-    "location": {
-      "title": "Standort & Kontakt",
-      "sub": "Wo Kunden dich finden und wie sie dich erreichen können."
+    "register": {
+      "heading": "Profil einrichten",
+      "sub": "Erzähl Kunden, wer du bist — das steuert deine öffentliche Seite.",
+      "saveBtn": "Speichern & abschließen →"
     },
-    "branding": {
-      "title": "Branding",
-      "sub": "Dein Logo und Headerbild bestimmen den ersten Eindruck deines Restaurants."
+    "edit": {
+      "sub": "Deine öffentlichen Restaurantdaten. Änderungen werden sofort wirksam."
     },
-    "social": {
-      "title": "Social-Media-Links",
-      "sub": "Verbinde deine Konten, damit Kunden dir folgen und teilen können."
+    "steps": {
+      "identity": "Identität",
+      "location": "Standort",
+      "branding": "Branding"
+    },
+    "sections": {
+      "identity": { "title": "Identität", "sub": "Name und Geschichte deines Restaurants — auf deiner Seite prominent angezeigt." },
+      "location": { "title": "Standort & Kontakt", "sub": "Wo Kunden dich finden und wie sie dich erreichen können." },
+      "branding": { "title": "Branding", "sub": "Dein Logo und Headerbild bestimmen den ersten Eindruck deines Restaurants." },
+      "social": { "title": "Social-Media-Links", "sub": "Verbinde deine Konten, damit Kunden dir folgen und teilen können." }
+    },
+    "fields": {
+      "name": { "label": "Restaurantname", "placeholder": "z.B. Fuoco Pizza Co." },
+      "tagline": { "label": "Slogan", "placeholder": "Kurzer Slogan für deine Startseite", "hint": "Am besten unter 10 Wörter. Er erscheint als Überschrift auf deiner öffentlichen Seite — mach ihn einprägsam." },
+      "description": { "label": "Über uns / Beschreibung", "placeholder": "Deine Geschichte — im Über-uns-Bereich angezeigt.", "hint": "2–4 Sätze sind ideal. Erzähl Kunden, was dein Restaurant besonders macht — deine Entstehungsgeschichte, Küchenstil oder das Erlebnis, das sie erwartet." },
+      "address": { "label": "Straße & Hausnummer", "placeholder": "z.B. Hauptstraße 12" },
+      "city": { "label": "Stadt", "placeholder": "z.B. Berlin" },
+      "postalCode": { "label": "Postleitzahl", "placeholder": "z.B. 10115" },
+      "phone": { "label": "Telefon", "placeholder": "+49 30 …" },
+      "email": { "label": "Öffentliche E-Mail", "placeholder": "hallo@deinrestaurant.de" },
+      "logo": { "label": "Logo", "hint": "Verwende ein quadratisches Bild (1:1) mit transparentem Hintergrund, mindestens 400×400 px. PNG oder SVG bevorzugt. Wird im Header und auf Belegen angezeigt." },
+      "hero": { "label": "Headerbild", "hint": "Das ist das große Bannerbild oben auf deiner öffentlichen Menüseite. Verwende ein breites, hochwertiges Foto (idealerweise 1600×900 px oder breiter) von deinem Essen, Interieur oder Team — etwas, das sofort die Atmosphäre deines Restaurants einfängt." },
+      "website": { "placeholder": "deinrestaurant.de" }
     }
   },
-  "fields": {
-    "name": {
-      "label": "Restaurantname",
-      "placeholder": "z.B. Fuoco Pizza Co."
-    },
-    "tagline": {
-      "label": "Slogan",
-      "placeholder": "Kurzer Slogan für deine Startseite",
-      "hint": "Am besten unter 10 Wörter. Er erscheint als Überschrift auf deiner öffentlichen Seite — mach ihn einprägsam."
-    },
-    "description": {
-      "label": "Über uns / Beschreibung",
-      "placeholder": "Deine Geschichte — im Über-uns-Bereich angezeigt.",
-      "hint": "2–4 Sätze sind ideal. Erzähl Kunden, was dein Restaurant besonders macht — deine Entstehungsgeschichte, Küchenstil oder das Erlebnis, das sie erwartet."
-    },
-    "address": {
-      "label": "Straße & Hausnummer",
-      "placeholder": "z.B. Hauptstraße 12"
-    },
-    "city": {
-      "label": "Stadt",
-      "placeholder": "z.B. Berlin"
-    },
-    "postalCode": {
-      "label": "Postleitzahl",
-      "placeholder": "z.B. 10115"
-    },
-    "phone": {
-      "label": "Telefon",
-      "placeholder": "+49 30 …"
-    },
-    "email": {
-      "label": "Öffentliche E-Mail",
-      "placeholder": "hallo@deinrestaurant.de"
-    },
-    "logo": {
-      "label": "Logo",
-      "hint": "Verwende ein quadratisches Bild (1:1) mit transparentem Hintergrund, mindestens 400×400 px. PNG oder SVG bevorzugt. Wird im Header und auf Belegen angezeigt."
-    },
-    "hero": {
-      "label": "Headerbild",
-      "hint": "Das ist das große Bannerbild oben auf deiner öffentlichen Menüseite. Verwende ein breites, hochwertiges Foto (idealerweise 1600×900 px oder breiter) von deinem Essen, Interieur oder Team — etwas, das sofort die Atmosphäre deines Restaurants einfängt."
-    },
-    "website": {
-      "placeholder": "deinrestaurant.de"
-    }
-  }
-},
   "navOrders": {
     "incoming": "Eingehend",
     "preparing": "In Zubereitung",
@@ -277,7 +232,6 @@
     "minsAgo": "vor {n}m",
     "hoursAgo": "vor {n}h"
   },
-
   "dashboard": {
     "brand": "Restaurant Admin",
     "title": "Bestellungs-Dashboard",
@@ -289,27 +243,23 @@
     "orders_shown": "Bestellungen angezeigt",
     "no_orders": "Keine Bestellungen entsprechen diesem Filter",
     "free": "kostenlos",
-
     "kpi": {
       "total_revenue": "Gesamtumsatz",
       "paypal": "PayPal",
       "cash_on_delivery": "Nachnahme",
       "card": "Karte"
     },
-
     "status": {
       "pending": "Ausstehend",
       "processing": "In Bearbeitung",
       "completed": "Abgeschlossen",
       "cancelled": "Storniert"
     },
-
     "payment": {
       "paypal": "PayPal",
       "cash_on_delivery": "Nachnahme",
       "card": "Karte"
     },
-
     "filter": {
       "all": "Alle",
       "paypal": "PayPal",
@@ -320,7 +270,6 @@
       "completed": "Abgeschlossen",
       "cancelled": "Storniert"
     },
-
     "table": {
       "order": "Bestellung",
       "customer": "Kunde",
@@ -333,14 +282,12 @@
       "tax": "MwSt.",
       "total": "Gesamt"
     },
-
     "footer": {
       "subtotal": "Zwischensumme",
       "delivery": "Lieferung",
       "tax": "MwSt.",
       "grand_total": "Gesamtsumme"
     },
-
     "errors": {
       "summary": "Zusammenfassung konnte nicht geladen werden",
       "orders": "Bestellungen konnten nicht geladen werden"
