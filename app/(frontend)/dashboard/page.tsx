@@ -2,8 +2,8 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-
 import { useTranslation } from "@/app/lib/i18n/context";
+
 /* ─── Types ──────────────────────────────────────────────────────────── */
 interface OrderSummary {
   total_orders: number;
@@ -113,16 +113,20 @@ export default function DashboardPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // ✅ Read translated error strings once on mount, before async callbacks
+    const errSummary = t("dashboard.errors.summary");
+    const errOrders  = t("dashboard.errors.orders");
+
     fetch("/api/orders/summary")
       .then(r => r.json())
       .then(d => { if (d.success) setSummary(d.data); else setError(d.error); })
-      .catch(() => setError(t("errors.summary")))
+      .catch(() => setError(errSummary))
       .finally(() => setLoadingSummary(false));
 
     fetch("/api/orders")
       .then(r => r.json())
       .then(d => { if (d.success) setOrders(d.data); else setError(d.error); })
-      .catch(() => setError(t("errors.orders")))
+      .catch(() => setError(errOrders))
       .finally(() => setLoadingOrders(false));
   }, []);
 
@@ -255,14 +259,14 @@ export default function DashboardPage() {
               <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 5 }}>
                 <span style={{ fontSize: 18 }}>🍽</span>
                 <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: 2, color: "#e07030", textTransform: "uppercase" }}>
-                  {t("brand")}
+                  {t("dashboard.brand")}
                 </span>
               </div>
               <h1 style={{ fontSize: 26, fontWeight: 800, color: "#12121e", lineHeight: 1.1 }}>
-                {t("title")}
+                {t("dashboard.title")}
               </h1>
               <p style={{ marginTop: 4, fontSize: 13, color: "#9998a0" }}>
-                {t("subtitle")}
+                {t("dashboard.subtitle")}
               </p>
             </div>
             <div style={{
@@ -282,17 +286,17 @@ export default function DashboardPage() {
               marginBottom: 20, padding: "11px 16px", borderRadius: 10,
               background: "#fff5f5", border: "1px solid #fecaca", color: "#dc2626", fontSize: 13, fontWeight: 500,
             }}>
-              {t("error_prefix")} {error}
+              {t("dashboard.error_prefix")} {error}
             </div>
           )}
 
           {/* ── KPI cards ── */}
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))", gap: 12, marginBottom: 12 }}>
             {([
-              { labelKey: "kpi.total_revenue",    value: summary?.total_revenue              ?? "0", sub: `${summary?.total_orders              ?? 0}`, color: "#e07030", icon: "📊" },
-              { labelKey: "kpi.paypal",           value: summary?.paypal_revenue             ?? "0", sub: `${summary?.paypal_orders             ?? 0}`, color: "#0ea5e9", icon: "🅿" },
-              { labelKey: "kpi.cash_on_delivery", value: summary?.cash_on_delivery_revenue   ?? "0", sub: `${summary?.cash_on_delivery_orders   ?? 0}`, color: "#f97316", icon: "💵" },
-              { labelKey: "kpi.card",             value: summary?.card_revenue               ?? "0", sub: `${summary?.card_orders               ?? 0}`, color: "#8b5cf6", icon: "💳" },
+              { labelKey: "dashboard.kpi.total_revenue",    value: summary?.total_revenue            ?? "0", sub: `${summary?.total_orders            ?? 0}`, color: "#e07030", icon: "📊" },
+              { labelKey: "dashboard.kpi.paypal",           value: summary?.paypal_revenue           ?? "0", sub: `${summary?.paypal_orders           ?? 0}`, color: "#0ea5e9", icon: "🅿" },
+              { labelKey: "dashboard.kpi.cash_on_delivery", value: summary?.cash_on_delivery_revenue ?? "0", sub: `${summary?.cash_on_delivery_orders ?? 0}`, color: "#f97316", icon: "💵" },
+              { labelKey: "dashboard.kpi.card",             value: summary?.card_revenue             ?? "0", sub: `${summary?.card_orders             ?? 0}`, color: "#8b5cf6", icon: "💳" },
             ]).map(c => (
               <div key={c.labelKey} className="kpi">
                 <div className="kpi-bar" style={{ background: c.color }} />
@@ -313,7 +317,7 @@ export default function DashboardPage() {
                       <AnimatedValue value={c.value} locale={locale} />
                     </div>
                     <div style={{ marginTop: 5, fontSize: 11, color: "#aaa8b4", fontWeight: 600 }}>
-                      {c.sub} {Number(c.sub) === 1 ? t("orders_singular") : t("orders_plural")}
+                      {c.sub} {Number(c.sub) === 1 ? t("dashboard.orders_singular") : t("dashboard.orders_plural")}
                     </div>
                   </>
                 )}
@@ -337,7 +341,7 @@ export default function DashboardPage() {
               >
                 <div>
                   <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: .7, textTransform: "uppercase", color: s.color, marginBottom: 4 }}>
-                    {t(`status.${s.key}` as any)}
+                    {t(`dashboard.status.${s.key}` as any)}
                   </div>
                   <div className="mono" style={{ fontSize: 22, fontWeight: 700, color: "#12121e", lineHeight: 1 }}>
                     {loadingSummary
@@ -359,15 +363,15 @@ export default function DashboardPage() {
               background: "#faf9f7",
             }}>
               <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: .7, color: "#bbb9c4", textTransform: "uppercase", marginRight: 4 }}>
-                {t("filter_label")}
+                {t("dashboard.filter_label")}
               </span>
               {(["all", "paypal", "cash_on_delivery", "card", "pending", "processing", "completed", "cancelled"] as FilterKey[]).map(f => (
                 <button key={f} className={`fpill${filter === f ? " active" : ""}`} onClick={() => setFilter(f)}>
-                  {t(`filter.${f}` as any)}
+                  {t(`dashboard.filter.${f}` as any)}
                 </button>
               ))}
               <span className="mono" style={{ marginLeft: "auto", fontSize: 11, color: "#bbb9c4", fontWeight: 600 }}>
-                {filtered.length} {filtered.length === 1 ? t("orders_singular") : t("orders_plural")}
+                {filtered.length} {filtered.length === 1 ? t("dashboard.orders_singular") : t("dashboard.orders_plural")}
               </span>
             </div>
 
@@ -377,16 +381,16 @@ export default function DashboardPage() {
                 <thead>
                   <tr>
                     {([
-                      { key: "order_number",   labelKey: "table.order"    },
-                      { key: "customer_name",  labelKey: "table.customer" },
-                      { key: "created_at",     labelKey: "table.date"     },
-                      { key: "status",         labelKey: "table.status"   },
-                      { key: "payment_method", labelKey: "table.payment"  },
-                      { key: "order_type",     labelKey: "table.type"     },
-                      { key: "subtotal",       labelKey: "table.subtotal", right: true },
-                      { key: "delivery_fee",   labelKey: "table.delivery", right: true },
-                      { key: "tax",            labelKey: "table.tax",      right: true },
-                      { key: "total",          labelKey: "table.total",    right: true },
+                      { key: "order_number",   labelKey: "dashboard.table.order"    },
+                      { key: "customer_name",  labelKey: "dashboard.table.customer" },
+                      { key: "created_at",     labelKey: "dashboard.table.date"     },
+                      { key: "status",         labelKey: "dashboard.table.status"   },
+                      { key: "payment_method", labelKey: "dashboard.table.payment"  },
+                      { key: "order_type",     labelKey: "dashboard.table.type"     },
+                      { key: "subtotal",       labelKey: "dashboard.table.subtotal", right: true },
+                      { key: "delivery_fee",   labelKey: "dashboard.table.delivery", right: true },
+                      { key: "tax",            labelKey: "dashboard.table.tax",      right: true },
+                      { key: "total",          labelKey: "dashboard.table.total",    right: true },
                     ] as { key: keyof Order; labelKey: string; right?: boolean }[]).map(col => (
                       <th key={col.key} style={{ textAlign: col.right ? "right" : "left" }} onClick={() => handleSort(col.key)}>
                         <span style={{ display: "inline-flex", alignItems: "center", gap: 3 }}>
@@ -407,7 +411,7 @@ export default function DashboardPage() {
                         ))}</tr>
                       ))
                     : sorted.length === 0
-                    ? <tr><td colSpan={10} style={{ textAlign: "center", padding: "48px 16px", color: "#ccc9c0", fontSize: 13 }}>{t("no_orders")}</td></tr>
+                    ? <tr><td colSpan={10} style={{ textAlign: "center", padding: "48px 16px", color: "#ccc9c0", fontSize: 13 }}>{t("dashboard.no_orders")}</td></tr>
                     : sorted.map((o, i) => {
                         const sm = STATUS_STYLE[o.status];
                         const pm = PAY_STYLE[o.payment_method];
@@ -428,12 +432,13 @@ export default function DashboardPage() {
                             <td>
                               <span className="spill" style={{ background: sm?.bg ?? "#f4f4f4", color: sm?.text ?? "#666" }}>
                                 <span className="spill-dot" style={{ background: sm?.dot ?? "#999" }} />
-                                {t(`dashboard.status.${o.status}`) || o.status}
+                                {t(`dashboard.status.${o.status}` as any) || o.status}
                               </span>
                             </td>
                             <td>
+                              {/* ✅ Fixed: was missing {} around t(), rendering as raw string */}
                               <span className="spill" style={{ background: pm?.bg ?? "#f4f4f4", color: pm?.text ?? "#666" }}>
-                               t(`dashboard.payment.${o.payment_method}`) || o.payment_method
+                                {pm?.icon} {t(`dashboard.payment.${o.payment_method}` as any) || o.payment_method}
                               </span>
                             </td>
                             <td>
@@ -447,7 +452,7 @@ export default function DashboardPage() {
                             <td style={{ textAlign: "right" }}>
                               {Number(o.delivery_fee) > 0
                                 ? <span className="mono" style={{ color: "#888690", fontSize: 13 }}>{fmt(o.delivery_fee, locale)}</span>
-                                : <span className="mono" style={{ color: "#d4d1c8", fontSize: 11 }}>{t("free")}</span>}
+                                : <span className="mono" style={{ color: "#d4d1c8", fontSize: 11 }}>{t("dashboard.free")}</span>}
                             </td>
                             <td style={{ textAlign: "right" }}>
                               <span className="mono" style={{ color: "#aaa8b4", fontSize: 12 }}>{fmt(o.tax, locale)}</span>
@@ -470,10 +475,10 @@ export default function DashboardPage() {
                 display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: 16,
               }}>
                 {([
-                  { labelKey: "footer.subtotal",   value: sumSub },
-                  { labelKey: "footer.delivery",   value: sumDel },
-                  { labelKey: "footer.tax",        value: sumTax },
-                  { labelKey: "footer.grand_total", value: sumTot, highlight: true },
+                  { labelKey: "dashboard.footer.subtotal",    value: sumSub },
+                  { labelKey: "dashboard.footer.delivery",    value: sumDel },
+                  { labelKey: "dashboard.footer.tax",         value: sumTax },
+                  { labelKey: "dashboard.footer.grand_total", value: sumTot, highlight: true },
                 ] as { labelKey: string; value: number; highlight?: boolean }[]).map(tf => (
                   <div key={tf.labelKey}>
                     <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: .7, textTransform: "uppercase", color: "#c8c5be", marginBottom: 3 }}>
@@ -486,7 +491,7 @@ export default function DashboardPage() {
                 ))}
                 <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "flex-end" }}>
                   <span className="mono" style={{ fontSize: 10, color: "#ccc9c0" }}>
-                    {filtered.length} {t("orders_shown")}
+                    {filtered.length} {t("dashboard.orders_shown")}
                   </span>
                 </div>
               </div>

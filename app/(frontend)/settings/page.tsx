@@ -7,6 +7,7 @@ import { useTranslation } from "@/app/lib/i18n/context";
 export default function SettingsHubPage() {
   const { t, locale, setLocale } = useTranslation();
 
+  // ✅ Moved inside the component — rebuilds on every locale change
   const SECTIONS = [
     {
       label: t("settings.sections.restaurant.label"),
@@ -19,8 +20,8 @@ export default function SettingsHubPage() {
     {
       label: t("settings.sections.ordersPayments.label"),
       items: [
-        { href: "/settings/paypal",  icon: "💳", iconClass: "sky",  label: t("settings.sections.ordersPayments.paypal.label"), desc: t("settings.sections.ordersPayments.paypal.desc"), badge: { label: t("settings.badges.notConnected"), style: "gray" } },
-        { href: "/settings/delivery-settings",  icon: "📦", iconClass: "gray", label: t("settings.sections.ordersPayments.deliverySettings.label"), desc: t("settings.sections.ordersPayments.deliverySettings.desc"), badge: null },
+        { href: "/settings/paypal",            icon: "💳", iconClass: "sky",  label: t("settings.sections.ordersPayments.paypal.label"),           desc: t("settings.sections.ordersPayments.paypal.desc"),           badge: { label: t("settings.badges.notConnected"), style: "gray" } },
+        { href: "/settings/delivery-settings", icon: "📦", iconClass: "gray", label: t("settings.sections.ordersPayments.deliverySettings.label"), desc: t("settings.sections.ordersPayments.deliverySettings.desc"), badge: null },
       ],
     },
     {
@@ -48,7 +49,7 @@ export default function SettingsHubPage() {
           --radius: 12px;
         }
         body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); }
-        .root { min-height: 100vh; max-width: 760px; margin: 0 auto; padding: 16px ; }
+        .root { min-height: 100vh; max-width: 760px; margin: 0 auto; padding: 16px; }
 
         .topbar {
           display: flex; align-items: center; gap: 6px;
