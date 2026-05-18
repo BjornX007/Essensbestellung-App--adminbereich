@@ -13,7 +13,7 @@ export default function SettingsHubPage() {
       label: t("settings.sections.restaurant.label"),
       items: [
         { href: "/settings/business-profile", icon: "🏪", iconClass: "orange", label: t("settings.sections.restaurant.businessProfile.label"), desc: t("settings.sections.restaurant.businessProfile.desc"), badge: null },
-        { href: "/settings/menu",             icon: "🍽️", iconClass: "teal",   label: t("settings.sections.restaurant.menu.label"),            desc: t("settings.sections.restaurant.menu.desc"),            badge: null },
+      //  { href: "/settings/menu",             icon: "🍽️", iconClass: "teal",   label: t("settings.sections.restaurant.menu.label"),            desc: t("settings.sections.restaurant.menu.desc"),            badge: null },
         { href: "/settings/opening-hours",    icon: "🕐", iconClass: "amber",  label: t("settings.sections.restaurant.openingHours.label"),    desc: t("settings.sections.restaurant.openingHours.desc"),    badge: { label: t("settings.badges.live"), style: "green" } },
       ],
     },

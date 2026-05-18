@@ -33,16 +33,16 @@ interface HistoryOrder {
 type StatusFilter = "all" | "delivered" | "out_for_delivery" | "cancelled";
 
 const STATUS_PILL: Record<string, { label: string; bg: string; color: string }> = {
-  delivered:        { label: "Delivered",       bg: "#f0fdf4", color: "#16a34a" },
-  out_for_delivery: { label: "Out for delivery", bg: "#eff6ff", color: "#2563eb" },
-  cancelled:        { label: "Cancelled",        bg: "#fef2f2", color: "#dc2626" },
+  delivered:        { label: "Delivered",        bg: "#f0fdf4", color: "#16a34a" },
+  out_for_delivery: { label: "Out for delivery",  bg: "#eff6ff", color: "#2563eb" },
+  cancelled:        { label: "Cancelled",         bg: "#fef2f2", color: "#dc2626" },
 };
 
 const PAYMENT_STATUS_PILL: Record<string, { bg: string; color: string }> = {
-  paid:    { bg: "#f0fdf4", color: "#16a34a" },
-  pending: { bg: "#fefce8", color: "#ca8a04" },
-  failed:  { bg: "#fef2f2", color: "#dc2626" },
-  refunded:{ bg: "#f5f3ff", color: "#7c3aed" },
+  paid:     { bg: "#f0fdf4", color: "#16a34a" },
+  pending:  { bg: "#fefce8", color: "#ca8a04" },
+  failed:   { bg: "#fef2f2", color: "#dc2626" },
+  refunded: { bg: "#f5f3ff", color: "#7c3aed" },
 };
 
 function fmt(n: number | string) {
@@ -110,7 +110,6 @@ function ExpandedRow({ order }: { order: HistoryOrder }) {
 export default function OrderHistoryPanel() {
   const [orders, setOrders] = useState<HistoryOrder[]>([]);
   const [total, setTotal] = useState(0);
-  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [q, setQ] = useState("");
@@ -118,11 +117,12 @@ export default function OrderHistoryPanel() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const fetchHistory = useCallback(async (query: string, status: StatusFilter, pg: number) => {
+  // ✅ Always fetch all records — no page param, large limit
+  const fetchHistory = useCallback(async (query: string, status: StatusFilter) => {
     setLoading(true);
     setError(null);
     try {
-      const params = new URLSearchParams({ q: query, status, page: String(pg) });
+      const params = new URLSearchParams({ q: query, status, limit: "10000" });
       const res = await fetch(`/api/orders/history?${params}`);
       if (!res.ok) {
         const body = await res.json().catch(() => ({}));
@@ -142,21 +142,14 @@ export default function OrderHistoryPanel() {
     }
   }, []);
 
-  // Debounced search
+  // Debounced search — no page state needed
   useEffect(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(() => {
-      setPage(1);
-      fetchHistory(q, statusFilter, 1);
+      fetchHistory(q, statusFilter);
     }, 300);
     return () => { if (debounceRef.current) clearTimeout(debounceRef.current); };
   }, [q, statusFilter, fetchHistory]);
-
-  useEffect(() => {
-    fetchHistory(q, statusFilter, page);
-  }, [page]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const totalPages = Math.ceil(total / 50);
 
   return (
     <div className="hist-panel">
@@ -216,6 +209,16 @@ export default function OrderHistoryPanel() {
             </tr>
           </thead>
           <tbody>
+            {loading && (
+              <tr>
+                <td colSpan={9} className="hist-empty">
+                  <div className="hist-empty-inner">
+                    <span className="hist-empty-icon">⏳</span>
+                    <span>Loading orders…</span>
+                  </div>
+                </td>
+              </tr>
+            )}
             {!loading && error && (
               <tr>
                 <td colSpan={9} className="hist-empty">
@@ -223,7 +226,7 @@ export default function OrderHistoryPanel() {
                     <span className="hist-empty-icon">⚠️</span>
                     <span className="hist-err-title">Could not load history</span>
                     <span className="hist-err-detail">{error}</span>
-                    <button className="hist-retry-btn" onClick={() => fetchHistory(q, statusFilter, page)}>
+                    <button className="hist-retry-btn" onClick={() => fetchHistory(q, statusFilter)}>
                       Retry
                     </button>
                   </div>
@@ -243,7 +246,7 @@ export default function OrderHistoryPanel() {
                 </td>
               </tr>
             )}
-            {orders.map((order) => {
+            {!loading && !error && orders.map((order) => {
               const isExpanded = expandedId === order.id;
               const sp = STATUS_PILL[order.status] ?? { label: order.status, bg: "#f1f5f9", color: "#64748b" };
               const pp = PAYMENT_STATUS_PILL[order.payment_status] ?? { bg: "#f1f5f9", color: "#64748b" };
@@ -282,35 +285,15 @@ export default function OrderHistoryPanel() {
         </table>
       </div>
 
-      {/* ── Pagination ── */}
-      {totalPages > 1 && (
-        <div className="hist-pagination">
-          <button
-            className="hist-page-btn"
-            disabled={page <= 1}
-            onClick={() => setPage((p) => Math.max(1, p - 1))}
-          >
-            ← Prev
-          </button>
-          <span className="hist-page-info">Page {page} of {totalPages}</span>
-          <button
-            className="hist-page-btn"
-            disabled={page >= totalPages}
-            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-          >
-            Next →
-          </button>
-        </div>
-      )}
-
       <style>{`
-        .hist-panel {
-          padding: 24px;
-          display: flex;
-          flex-direction: column;
-          gap: 16px;
-          min-height: calc(100vh - 68px);
-        }
+      .hist-panel {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: calc(100vh - 68px);
+  overflow: hidden;
+}
 
         /* ── Toolbar ── */
         .hist-toolbar {
@@ -389,12 +372,15 @@ export default function OrderHistoryPanel() {
 
         /* ── Table ── */
         .hist-table-wrap {
-          background: #fff;
-          border-radius: 16px;
-          border: 1.5px solid #e2e8f0;
-          overflow: hidden;
-          box-shadow: 0 1px 4px rgba(0,0,0,.05);
-        }
+  background: #fff;
+  border-radius: 16px;
+  border: 1.5px solid #e2e8f0;
+  overflow-y: auto;
+  overflow-x: auto;
+  box-shadow: 0 1px 4px rgba(0,0,0,.05);
+  flex: 1;
+  min-height: 0;
+}
         .hist-table {
           width: 100%;
           border-collapse: collapse;
@@ -480,11 +466,7 @@ export default function OrderHistoryPanel() {
           gap: 7px;
           font-size: 13px;
         }
-        .hist-item-qty {
-          font-weight: 700;
-          color: #6366f1;
-          min-width: 22px;
-        }
+        .hist-item-qty { font-weight: 700; color: #6366f1; min-width: 22px; }
         .hist-item-name { color: #1e293b; font-weight: 500; }
         .hist-item-note { color: #94a3b8; font-style: italic; font-size: 12px; }
         .hist-item-price { margin-left: auto; font-weight: 600; color: #475569; }
@@ -498,12 +480,7 @@ export default function OrderHistoryPanel() {
           font-size: 13px;
           color: #64748b;
         }
-        .hist-brow-meta {
-          font-size: 12px;
-          color: #94a3b8;
-          border-top: none;
-          padding-top: 0;
-        }
+        .hist-brow-meta { font-size: 12px; color: #94a3b8; }
         .hist-brow-total {
           font-weight: 700;
           color: #0f172a;
@@ -536,30 +513,6 @@ export default function OrderHistoryPanel() {
           font-weight: 600;
         }
         .hist-empty-icon { font-size: 32px; }
-
-        /* ── Pagination ── */
-        .hist-pagination {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 16px;
-          padding-bottom: 8px;
-        }
-        .hist-page-btn {
-          padding: 8px 18px;
-          border: 1.5px solid #e2e8f0;
-          border-radius: 8px;
-          background: #fff;
-          font-size: 13px;
-          font-weight: 600;
-          color: #475569;
-          cursor: pointer;
-          font-family: 'DM Sans', sans-serif;
-          transition: all .15s;
-        }
-        .hist-page-btn:disabled { opacity: .4; cursor: not-allowed; }
-        .hist-page-btn:not(:disabled):hover { border-color: #6366f1; color: #6366f1; }
-        .hist-page-info { font-size: 13px; color: #64748b; font-weight: 600; }
       `}</style>
     </div>
   );
