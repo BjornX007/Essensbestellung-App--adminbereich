@@ -105,49 +105,7 @@ export default function SignUpPage() {
 
       <div className="auth-wrapper">
         <div className="auth-card">
-          <h1 className="auth-title">Create Account</h1>
-          <form onSubmit={handleSubmit}>
-            <div className="auth-field">
-              <label className="auth-label" htmlFor="signup-name">Name</label>
-              <input
-                id="signup-name"
-                name="name"
-                type="text"
-                required
-                autoComplete="name"
-                className="auth-input"
-              />
-            </div>
-            <div className="auth-field">
-              <label className="auth-label" htmlFor="signup-email">Email</label>
-              <input
-                id="signup-email"
-                name="email"
-                type="email"
-                required
-                autoComplete="email"
-                className="auth-input"
-              />
-            </div>
-            <div className="auth-field">
-              <label className="auth-label" htmlFor="signup-password">Password</label>
-              <input
-                id="signup-password"
-                name="password"
-                type="password"
-                required
-                autoComplete="new-password"
-                className="auth-input"
-              />
-            </div>
-            {error && <p className="auth-error">{error}</p>}
-            <button type="submit" disabled={loading} className="auth-button">
-              {loading ? "Creating account..." : "Sign Up"}
-            </button>
-          </form>
-          <p className="auth-footer">
-            Already have an account? <Link href="/auth/sign-in">Sign in</Link>
-          </p>
+          <h1 className="auth-title">Create an Account</h1>
         </div>
       </div>
     </>
