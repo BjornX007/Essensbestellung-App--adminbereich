@@ -1,5 +1,5 @@
 "use client";
-
+import { authClient } from "@/app/lib/auth/client";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -17,7 +17,10 @@ export default function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
   const router = useRouter();
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
   const [isLandscape, setIsLandscape] = useState(false);
-
+const handleSignOut = async () => {
+  await authClient.signOut();
+  router.push("/auth/sign-in");
+};
   const navItems = [
     {
       label: t("nav.overview"),
@@ -203,16 +206,29 @@ export default function Sidebar({ collapsed, onToggle, user }: SidebarProps) {
         })}
       </nav>
 
-      {/* User */}
-      <div style={{ padding: collapsed ? "14px 0" : "14px 16px 18px", borderTop: "1px solid #e5e7eb", display: "flex", alignItems: "center", gap: "10px", justifyContent: collapsed ? "center" : "flex-start", transition: "padding 0.3s cubic-bezier(0.4,0,0.2,1)", flexShrink: 0 }}>
-        <div style={{ width: "34px", height: "34px", borderRadius: "50%", background: "#f3f4f6", border: "1.5px solid #e5e7eb", display: "flex", alignItems: "center", justifyContent: "center", color: "#111827", fontSize: "11px", fontWeight: 700, flexShrink: 0 }}>
-          {initials}
-        </div>
-        <div style={{ overflow: "hidden", opacity: collapsed ? 0 : 1, width: collapsed ? 0 : "auto", transition: "opacity 0.2s ease, width 0.3s cubic-bezier(0.4,0,0.2,1)", whiteSpace: "nowrap" }}>
-          <div style={{ fontSize: "12.5px", color: "#111827", fontWeight: 600 }}>{user?.name ?? user?.email ?? t("nav.guest")}</div>
-          <div style={{ fontSize: "11px", color: "#9ca3af" }}>{user?.email ?? ""}</div>
-        </div>
-      </div>
+     {/* User + Logout */}
+<div style={{ padding: collapsed ? "14px 0" : "14px 16px 18px", borderTop: "1px solid #e5e7eb", display: "flex", alignItems: "center", gap: "10px", justifyContent: collapsed ? "center" : "flex-start", transition: "padding 0.3s cubic-bezier(0.4,0,0.2,1)", flexShrink: 0 }}>
+  <div style={{ width: "34px", height: "34px", borderRadius: "50%", background: "#f3f4f6", border: "1.5px solid #e5e7eb", display: "flex", alignItems: "center", justifyContent: "center", color: "#111827", fontSize: "11px", fontWeight: 700, flexShrink: 0 }}>
+    {initials}
+  </div>
+  <div style={{ overflow: "hidden", opacity: collapsed ? 0 : 1, width: collapsed ? 0 : "auto", transition: "opacity 0.2s ease, width 0.3s cubic-bezier(0.4,0,0.2,1)", whiteSpace: "nowrap", flex: 1 }}>
+    <div style={{ fontSize: "12.5px", color: "#111827", fontWeight: 600 }}>{user?.name ?? user?.email ?? t("nav.guest")}</div>
+    <div style={{ fontSize: "11px", color: "#9ca3af" }}>{user?.email ?? ""}</div>
+  </div>
+  {!collapsed && (
+    <button
+      onClick={handleSignOut}
+      title={t("nav.signOut")}
+      style={{ flexShrink: 0, background: "none", border: "none", cursor: "pointer", color: "#9ca3af", padding: "4px", borderRadius: "6px", display: "flex", alignItems: "center", justifyContent: "center", transition: "color 0.15s ease, background 0.15s ease" }}
+      onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.color = "#111827"; (e.currentTarget as HTMLButtonElement).style.background = "#f3f4f6"; }}
+      onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.color = "#9ca3af"; (e.currentTarget as HTMLButtonElement).style.background = "none"; }}
+    >
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+      </svg>
+    </button>
+  )}
+</div>
 
       {/* Collapse toggle */}
       <button onClick={onToggle} style={{ position: "absolute", top: "50%", right: "-9px", transform: "translateY(-50%)", width: "26px", height: "26px", borderRadius: "50%", background: "#ffffff", border: "1px solid #e5e7eb", color: "#9ca3af", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 300, transition: "color 0.15s ease, box-shadow 0.15s ease" }}

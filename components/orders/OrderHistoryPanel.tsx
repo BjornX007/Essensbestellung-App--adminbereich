@@ -9,6 +9,7 @@ interface HistoryItem {
   quantity: number;
   unit_price_snapshot: number;
   item_note?: string;
+  option_values?: string | null;  // ← fix: was JSX.Element
 }
 
 interface HistoryOrder {
@@ -20,13 +21,16 @@ interface HistoryOrder {
   customer_email?: string;
   customer_phone?: string;
   subtotal: number;
-  tax: number;
+  tax?: number;
   delivery_fee: number;
   total: number;
   payment_method: string;
   payment_status: string;
   created_at: string;
   updated_at: string;
+  assigned_driver_id?: string;
+  delivered_by?: string | null;       // ← add
+  delivery_address?: string | null;   // ← add
   items: HistoryItem[];
 }
 
@@ -71,6 +75,7 @@ function ExpandedRow({ order }: { order: HistoryOrder }) {
                   <span className="hist-item-name">{item.product_name_snapshot}</span>
                   {item.item_note && <span className="hist-item-note">"{item.item_note}"</span>}
                   <span className="hist-item-price">€{fmt(item.unit_price_snapshot * item.quantity)}</span>
+                 {item.option_values && <span className="hist-option-values">({item.option_values})</span>}  
                 </div>
               ))}
             </div>
@@ -82,7 +87,7 @@ function ExpandedRow({ order }: { order: HistoryOrder }) {
               {Number(order.delivery_fee) > 0 && (
                 <div className="hist-brow"><span>Delivery fee</span><span>€{fmt(order.delivery_fee)}</span></div>
               )}
-              <div className="hist-brow"><span>Tax incl.</span><span>€{fmt(order.tax)}</span></div>
+             
               <div className="hist-brow hist-brow-total"><span>Total</span><span>€{fmt(order.total)}</span></div>
               <div className="hist-brow hist-brow-meta">
                 <span>Payment</span>
@@ -99,6 +104,9 @@ function ExpandedRow({ order }: { order: HistoryOrder }) {
               <p className="hist-exp-label">Contact</p>
               {order.customer_email && <p className="hist-contact">{order.customer_email}</p>}
               {order.customer_phone && <p className="hist-contact">{order.customer_phone}</p>}
+             {order.delivery_address && (
+  <p className="hist-contact">{order.delivery_address}</p>
+)}
             </div>
           )}
         </div>
@@ -176,9 +184,9 @@ export default function OrderHistoryPanel() {
               onClick={() => setStatusFilter(s)}
             >
               {s === "all" ? "All"
-                : s === "delivered" ? "✅ Delivered"
-                : s === "out_for_delivery" ? "🛵 Out for delivery"
-                : "❌ Cancelled"}
+                : s === "delivered" ? " Delivered"
+                : s === "out_for_delivery" ? " Out for delivery"
+                : " Cancelled"}
             </button>
           ))}
         </div>
@@ -195,8 +203,7 @@ export default function OrderHistoryPanel() {
       {/* ── Table ── */}
       <div className="hist-table-wrap">
         <table className="hist-table">
-          <thead>
-            <tr>
+          <thead><tr>
               <th></th>
               <th>#</th>
               <th>Date</th>
@@ -206,7 +213,7 @@ export default function OrderHistoryPanel() {
               <th>Total</th>
               <th>Payment</th>
               <th>Status</th>
-            </tr>
+              <th>Delivered by</th></tr>
           </thead>
           <tbody>
             {loading && (
@@ -276,6 +283,15 @@ export default function OrderHistoryPanel() {
                     <span className="hist-pill" style={{ background: sp.bg, color: sp.color }}>
                       {sp.label}
                     </span>
+                  </td>
+{/* delivered by driver name */}
+<td className="hist-delivered-by">
+{order.status === "delivered" ? (
+  <span>{order.delivered_by ?? "—"}</span>
+) : (
+  <span>—</span>
+)}  
+                   
                   </td>
                 </tr>,
                 isExpanded && <ExpandedRow key={`${order.id}-exp`} order={order} />,
