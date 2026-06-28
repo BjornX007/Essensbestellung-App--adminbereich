@@ -26,6 +26,8 @@ export async function PATCH(
     const {
       to_status,
       changed_by = "kitchen_staff",
+
+
       note = null,
     } = body as { to_status?: OrderStatus; changed_by?: string; note?: string };
 
