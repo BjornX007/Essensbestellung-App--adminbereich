@@ -287,8 +287,12 @@ export default function KitchenPage() {
       />
 
       <main style={{ marginTop: 68, height: "calc(100vh - 68px)", overflow: "hidden", display: "flex", flexDirection: "column", background: "#f1f5f9" }}>
-        {stage === "incoming"  && <KitchenDisplay orders={orders} onAdvance={advanceOrder} advancing={advancing} />}
-        {stage === "preparing" && <KitchenDisplay orders={orders} onAdvance={advanceOrder} advancing={advancing} />}
+        {stage === "incoming"  && <KitchenDisplay orders={orders} onAdvance={advanceOrder} advancing={advancing} onOrderDispatched={function (orderId: string): void {
+          throw new Error("Function not implemented.");
+        } } />}
+        {stage === "preparing" && <KitchenDisplay orders={orders} onAdvance={advanceOrder} advancing={advancing} onOrderDispatched={function (orderId: string): void {
+          throw new Error("Function not implemented.");
+        } } />}
         {stage === "dispatch"  && <DispatchGrid   orders={dispatchOrders} onAdvance={advanceOrder} advancing={advancing} />}
         {stage === "history"   && <OrderHistoryPanel />}
       </main>
