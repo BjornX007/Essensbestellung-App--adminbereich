@@ -15,8 +15,7 @@ interface OrderSummary {
   paypal_revenue: string;
   cash_on_delivery_orders: number;
   cash_on_delivery_revenue: string;
-  card_orders: number;
-  card_revenue: string;
+
   pending_orders: number;
   delivered_orders: number;
   cancelled_orders: number;
@@ -294,7 +293,7 @@ export default function DashboardPage() {
             {([
               { labelKey: "dashboard.kpi.total_revenue",    value: summary?.total_revenue            ?? "0", sub: summary?.total_orders            ?? 0, color: "#c2440e", icon: "ti-chart-bar" },
               { labelKey: "dashboard.kpi.paypal",           value: summary?.paypal_revenue           ?? "0", sub: summary?.paypal_orders           ?? 0, color: "#0369a1", icon: "ti-brand-paypal" },
-              { labelKey: "dashboard.kpi.card",             value: summary?.card_revenue             ?? "0", sub: summary?.card_orders             ?? 0, color: "#7c3aed", icon: "ti-credit-card" },
+      
               { labelKey: "dashboard.kpi.cash_on_delivery", value: summary?.cash_on_delivery_revenue ?? "0", sub: summary?.cash_on_delivery_orders ?? 0, color: "#0f766e", icon: "ti-cash" },
             ]).map(c => (
               <div key={c.labelKey} className="kpi">

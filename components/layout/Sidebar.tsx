@@ -135,7 +135,7 @@ const handleSignOut = async () => {
               )}
               <span style={{ position: "relative" }}>
                 {item.icon}
-               {"}"}
+               
               </span>
               <span style={{ fontSize: "10px", fontWeight: active ? 600 : 400 }}>{item.label}</span>
             </button>

@@ -3,7 +3,7 @@
 // app/admin/settings/page.tsx
 import Link from "next/link";
 import { useTranslation } from "@/app/lib/i18n/context";
-
+import { authClient } from "@/app/lib/auth/client";
 export default function SettingsHubPage() {
   const { t, locale, setLocale } = useTranslation();
 
@@ -154,6 +154,32 @@ export default function SettingsHubPage() {
               DE
             </button>
           </div>
+          {/* ── Sign out ── */}
+<button
+  onClick={async () => {
+    await authClient.signOut();
+    window.location.href = "/auth/sign-in";
+  }}
+  style={{
+    display: "flex", alignItems: "center", gap: 6,
+    background: "none", border: "0.5px solid var(--border)",
+    borderRadius: 8, padding: "4px 10px",
+    fontSize: 12, fontWeight: 500, color: "var(--ink3)",
+    cursor: "pointer", fontFamily: "inherit", transition: "all .15s",
+  }}
+  onMouseEnter={(e) => {
+    (e.currentTarget as HTMLButtonElement).style.color = "#dc2626";
+    (e.currentTarget as HTMLButtonElement).style.borderColor = "#fca5a5";
+    (e.currentTarget as HTMLButtonElement).style.background = "#fef2f2";
+  }}
+  onMouseLeave={(e) => {
+    (e.currentTarget as HTMLButtonElement).style.color = "var(--ink3)";
+    (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--border)";
+    (e.currentTarget as HTMLButtonElement).style.background = "none";
+  }}
+>
+  ← Abmelden
+</button>
         </div>
 
         <div className="page-title">{t("settings.title")}</div>

@@ -1,5 +1,6 @@
 "use client";
-
+import { authClient } from "@/app/lib/auth/client";
+import { useRouter } from "next/navigation";
 import {
   useState,
   useEffect,
@@ -95,7 +96,6 @@ function filterDone(orders: DriverOrder[], filter: DoneFilter): DriverOrder[] {
       new Date(o.created_at).getTime() >= cutoff[filter]
   );
 }
-
 /* ─── primitives ──────────────────────────────────────────── */
 
 function Spinner({ size = 16, light = false }: { size?: number; light?: boolean }) {
@@ -802,6 +802,9 @@ function CashPanel({ orders, onReset }: { orders: DriverOrder[]; onReset: () => 
 type Tab = "active" | "done" | "cash";
 
 export default function DriverView() {
+  const { data: session } = authClient.useSession();
+  const router = useRouter();
+  const driverName = session?.user?.name ?? session?.user?.email ?? "Fahrer";
   const [orders, setOrders] = useState<DriverOrder[]>([]);
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState<Tab>("active");
@@ -891,7 +894,70 @@ const handleCashReset = useCallback(async () => {
   await load();
 }, [load]);
   const currentList = tab === "active" ? active : doneOrders;
+function UserMenu({ name }: { name: string }) {
+  const [open, setOpen] = useState(false);
+  const router = useRouter();
+  const initials = name.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2) || "?";
 
+  const handleSignOut = async () => {
+    await authClient.signOut();
+    router.push("/auth/sign-in");
+  };
+
+  return (
+    <div style={{ position: "relative" }}>
+      <button
+        onClick={() => setOpen((v) => !v)}
+        style={{
+          background: "#f1f5f9", border: "none", borderRadius: 99,
+          display: "flex", alignItems: "center", gap: 7,
+          padding: "5px 10px 5px 5px", cursor: "pointer",
+        }}
+      >
+        <div style={{
+          width: 28, height: 28, borderRadius: "50%",
+          background: "#0f172a", color: "#fff",
+          display: "flex", alignItems: "center", justifyContent: "center",
+          fontSize: 11, fontWeight: 800,
+        }}>
+          {initials}
+        </div>
+        <span style={{ fontSize: 12, fontWeight: 700, color: "#334155" }}>
+          {name.split(" ")[0]}
+        </span>
+      </button>
+
+      {open && (
+        <>
+          <div onClick={() => setOpen(false)} style={{ position: "fixed", inset: 0, zIndex: 50 }} />
+          <div style={{
+            position: "absolute", top: "calc(100% + 8px)", right: 0,
+            background: "#fff", border: "1px solid #e8ecf0",
+            borderRadius: 12, padding: 6, zIndex: 100,
+            boxShadow: "0 8px 24px rgba(0,0,0,.10)",
+            minWidth: 160,
+          }}>
+            <div style={{ padding: "8px 12px 10px", borderBottom: "1px solid #f1f5f9", marginBottom: 4 }}>
+              <p style={{ margin: 0, fontSize: 12, fontWeight: 700, color: "#0f172a" }}>{name}</p>
+              <p style={{ margin: 0, fontSize: 11, color: "#94a3b8" }}>Fahrer</p>
+            </div>
+            <button
+              onClick={handleSignOut}
+              style={{
+                width: "100%", display: "flex", alignItems: "center", gap: 9,
+                padding: "9px 12px", background: "none", border: "none",
+                borderRadius: 8, cursor: "pointer", color: "#dc2626",
+                fontSize: 13, fontWeight: 600, fontFamily: "inherit",
+              }}
+            >
+              Abmelden
+            </button>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
   return (
     <>
       <style>{`
@@ -984,7 +1050,8 @@ const handleCashReset = useCallback(async () => {
                 <RotateCcw size={13} color="#64748b" strokeWidth={2.2} />
               </button>
               {active.length > 0 && (
-                <span
+               
+               <span
                   style={{
                     background: "#fff4e6",
                     color: "#c2410c",
@@ -996,10 +1063,14 @@ const handleCashReset = useCallback(async () => {
                     letterSpacing: -0.1,
                   }}
                 >
-                  {active.length} aktiv
+                               {active.length} bestellung
+               
                 </span>
               )}
-            </div>
+             
+                <UserMenu name={driverName} />
+             
+             </div>
           </div>
 
           {/* search */}
