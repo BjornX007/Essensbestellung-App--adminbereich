@@ -73,7 +73,7 @@ function Topbar({ stage, onChange, counts, initialLoad, clock, lastSynced }: {
       {/* Brand */}
       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
         <div style={{ width: 36, height: 36, borderRadius: 10, background: "linear-gradient(135deg,#6366f1,#8b5cf6)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 17, boxShadow: "0 2px 8px rgba(99,102,241,.3)" }}>🍴</div>
-        <span style={{ fontFamily: "'Sora',sans-serif", fontSize: 17, fontWeight: 800, color: "#0f172a", letterSpacing: -0.5 }}>KitchenOS</span>
+        <span style={{ fontFamily: "'Sora',sans-serif", fontSize: 17, fontWeight: 800, color: "#0f172a", letterSpacing: -0.5 }}>Bestellbildschirm</span>
       </div>
 
       {/* Nav */}
@@ -112,14 +112,7 @@ function Topbar({ stage, onChange, counts, initialLoad, clock, lastSynced }: {
       {/* Right */}
       <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
         {/* Only shown once on first load, then replaced by last-synced timestamp */}
-        {initialLoad
-          ? <span style={{ fontSize: 12, color: "#94a3b8", fontWeight: 600 }}>{t("topbar.syncing")}</span>
-          : lastSynced && (
-              <span style={{ fontSize: 11, color: "#94a3b8", fontWeight: 500 }}>
-                {lastSynced.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit", second: "2-digit" })}
-              </span>
-            )
-        }
+        
         <span style={{ fontFamily: "'Sora',monospace", fontSize: 16, fontWeight: 700, color: "#0f172a", letterSpacing: -0.3 }}>{clock}</span>
         <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "5px 12px", borderRadius: 999, fontSize: 12, fontWeight: 700, background: "#f0fdf4", border: "1px solid #bbf7d0", color: "#16a34a" }}>
           <span style={{ width: 7, height: 7, borderRadius: "50%", background: "currentColor", animation: "pulse 1.4s ease-in-out infinite", display: "inline-block" }} />

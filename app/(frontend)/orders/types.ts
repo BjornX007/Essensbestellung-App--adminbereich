@@ -74,6 +74,7 @@ export type PaymentMethod = "card" | "cash_on_delivery" | "paypal";
 export type PaymentStatus = "pending" | "paid" | "failed" | "refunded";
 
 export interface KitchenOrder {
+  assigned_driver_id: any;
   id: string;
   order_number: string;
   status: OrderStatus;

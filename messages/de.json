@@ -204,7 +204,7 @@
     "dispatch": "Versenden",
     "markDelivered": "Als geliefert markieren",
     "payment_card": "Karte",
-    "payment_cash_on_delivery": "Nachnahme",
+    "payment_cash_on_delivery": "Barzahlung bei Lieferung",
     "payment_paypal": "PayPal"
   },
   "orderType": {
@@ -246,7 +246,7 @@
     "kpi": {
       "total_revenue": "Gesamtumsatz",
       "paypal": "PayPal",
-      "cash_on_delivery": "Nachnahme",
+    "cash_on_delivery": "Barzahlung bei Lieferung",
       "card": "Karte"
     },
     "status": {
@@ -257,13 +257,13 @@
     },
     "payment": {
       "paypal": "PayPal",
-      "cash_on_delivery": "Nachnahme",
+      "cash_on_delivery": "Barzahlung bei Lieferung",
       "card": "Karte"
     },
     "filter": {
       "all": "Alle",
       "paypal": "PayPal",
-      "cash_on_delivery": "Nachnahme",
+      "cash_on_delivery": "Barzahlung bei Lieferung",
       "card": "Karte",
       "pending": "Ausstehend",
       "processing": "In Bearbeitung",
@@ -292,5 +292,87 @@
       "summary": "Zusammenfassung konnte nicht geladen werden",
       "orders": "Bestellungen konnten nicht geladen werden"
     }
+  },
+  "orderHistory": {
+  "searchPlaceholder": "Nach Name, Bestellnr., E-Mail suchen…",
+  "filterAll": "Alle",
+  "filterDelivered": "Geliefert",
+  "filterOutForDelivery": "Unterwegs",
+  "filterCancelled": "Storniert",
+  "dateAll": "Gesamt",
+  "dateToday": "Heute",
+  "dateYesterday": "Gestern",
+  "dateCustom": "Zeitraum",
+  "loading": "Lädt…",
+  "orderCount_one": "Bestellung",
+  "orderCount_other": "Bestellungen",
+  "itemCount_one": "Artikel",
+  "itemCount_other": "Artikel",
+  "colNumber": "#",
+  "colDate": "Datum",
+  "colCustomer": "Kunde",
+  "colType": "Typ",
+  "colItems": "Artikel",
+  "colTotal": "Gesamt",
+  "colPayment": "Zahlung",
+  "colStatus": "Status",
+  "colDeliveredBy": "Lieferant",
+  "expandItems": "Artikel",
+  "expandBreakdown": "Aufschlüsselung",
+  "expandContact": "Kontakt",
+  "subtotal": "Zwischensumme",
+  "deliveryFee": "Liefergebühr",
+  "total": "Gesamt",
+  "payment": "Zahlung",
+  "type": "Typ",
+  "typeDelivery": "Lieferung",
+  "typePickup": "Abholung",
+  "statusDelivered": "Geliefert",
+  "statusOutForDelivery": "Unterwegs",
+  "statusCancelled": "Storniert",
+   "pending": "Ausstehend",
+  "guest": "Gast",
+  "notDelivered": "—",
+  "noOrders": "Keine Bestellungen gefunden",
+  "noOrdersFilterHint": "Filter anpassen",
+  "errorTitle": "Fehler beim Laden",
+  "retry": "Erneut versuchen",
+
+  "paymentMethod_cash_on_delivery": "Bargeld",
+  "paymentMethod_paypal": "PayPal"
+
+},
+
+  "kitchen": {
+    "incoming": "Eingehend",
+    "preparing": "In Zubereitung",
+    "ready": "Fertig",
+    "noNewOrders": "Keine neuen Bestellungen",
+    "noNewOrdersSub": "Neue Bestellungen erscheinen hier",
+    "nothingPreparing": "Nichts in Zubereitung",
+    "nothingPreparingSub": "Bestätigte Bestellungen kommen hierher",
+    "nothingReady": "Noch nichts fertig",
+    "nothingReadySub": "Bestellungen kommen hierher wenn sie fertig sind",
+    "pending": "Ausstehend",
+    "confirmed": "Bestätigt",
+    "confirmOrder": "Bestellung bestätigen",
+    "startPreparing": "Zubereitung starten",
+    "markReady": "Als fertig markieren",
+    "sendForDelivery": "Zur Lieferung senden",
+    "items": "Artikel",
+    "note": "NOTIZ",
+    "phone": "Tel.",
+    "addr": "Addr.",
+    "assignDriver": "Fahrer zuweisen",
+    "assignDriverSub": "Wählen Sie den Fahrer für diese Bestellung aus.",
+    "noDrivers": "Keine Fahrer verfügbar. Zuerst Fahrer hinzufügen.",
+    "cancel": "Abbrechen",
+    "failedDrivers": "Fahrer konnten nicht geladen werden",
+    "failedAssign": "Fahrer konnte nicht zugewiesen werden. Erneut versuchen.",
+    "prep": "Zeit",
+    "timeAgo_seconds": "vor {n}s",
+    "timeAgo_minutes": "vor {n}m",
+    "timeAgo_hours": "vor {n}h"
   }
+
 }

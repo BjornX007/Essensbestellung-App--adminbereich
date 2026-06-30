@@ -1,7 +1,10 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { KitchenOrder } from "@/app/(frontend)/orders/types";
 import { useTranslation } from "@/app/lib/i18n/context";
+
+interface Driver { id: string; name: string; email: string; }
 
 interface DispatchGridProps {
   orders: KitchenOrder[];
@@ -27,7 +30,17 @@ function StatusPill({ status, t }: { status: KitchenOrder["status"]; t: (k: stri
   );
 }
 
-function DispatchCard({ order, onAdvance, advancing }: { order: KitchenOrder; onAdvance: DispatchGridProps["onAdvance"]; advancing: Set<string> }) {
+function DispatchCard({
+  order,
+  onAdvance,
+  advancing,
+  driverName,
+}: {
+  order: KitchenOrder;
+  onAdvance: DispatchGridProps["onAdvance"];
+  advancing: Set<string>;
+  driverName?: string;
+}) {
   const { t } = useTranslation();
   const isAdv = advancing.has(order.id);
 
@@ -37,7 +50,7 @@ function DispatchCard({ order, onAdvance, advancing }: { order: KitchenOrder; on
   };
   const nextLabel = NEXT_LABEL[order.status];
 
-  const btnColor = order.status === "ready" ? "#f97316" : "#6366f1";
+  const btnColor  = order.status === "ready" ? "#f97316" : "#6366f1";
   const btnShadow = order.status === "ready" ? "rgba(249,115,22,.3)" : "rgba(99,102,241,.3)";
 
   const addr = order.delivery_address;
@@ -97,9 +110,22 @@ function DispatchCard({ order, onAdvance, advancing }: { order: KitchenOrder; on
 
       {/* Footer */}
       <div style={{ padding: "14px 18px 16px", display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "auto" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: 1 }}>
-          <span style={{ fontFamily: "'Sora',sans-serif", fontSize: 22, fontWeight: 900, color: "#0f172a", letterSpacing: -0.5 }}>€{Number(order.total).toFixed(2)}</span>
-          <span style={{ fontSize: 11, color: "#94a3b8", fontWeight: 500 }}>{t(`orderCard.payment_${order.payment_method}`) || order.payment_method}</span>
+        <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+          <span style={{ fontFamily: "'Sora',sans-serif", fontSize: 22, fontWeight: 900, color: "#0f172a", letterSpacing: -0.5 }}>
+            €{Number(order.total).toFixed(2)}
+          </span>
+          <span style={{ fontSize: 11, color: "#94a3b8", fontWeight: 500 }}>
+            {t(`orderCard.payment_${order.payment_method}`) || order.payment_method}
+          </span>
+          {driverName ? (
+            <span style={{ fontSize: 12, color: "#6366f1", fontWeight: 700 }}>
+              🛵 {driverName}
+            </span>
+          ) : order.assigned_driver_id ? (
+            <span style={{ fontSize: 12, color: "#94a3b8", fontWeight: 500 }}>
+              🛵 …
+            </span>
+          ) : null}
         </div>
         {nextLabel && (
           <button
@@ -117,6 +143,20 @@ function DispatchCard({ order, onAdvance, advancing }: { order: KitchenOrder; on
 
 export default function DispatchGrid({ orders, onAdvance, advancing }: DispatchGridProps) {
   const { t } = useTranslation();
+  const [drivers, setDrivers] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    fetch("/api/driver")
+      .then((r) => r.json())
+      .then((d) => {
+        const map: Record<string, string> = {};
+        for (const driver of (d.drivers ?? []) as Driver[]) {
+          map[driver.id] = driver.name;
+        }
+        setDrivers(map);
+      })
+      .catch(() => {}); // silently fail — driver names just won't show
+  }, []);
 
   const ready      = orders.filter((o) => o.status === "ready");
   const dispatched = orders.filter((o) => o.status === "out_for_delivery");
@@ -153,7 +193,12 @@ export default function DispatchGrid({ orders, onAdvance, advancing }: DispatchG
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 16 }}>
                 {ready.map((order, i) => (
                   <div key={order.id} style={{ animationDelay: `${i * 40}ms` }}>
-                    <DispatchCard order={order} onAdvance={onAdvance} advancing={advancing} />
+                    <DispatchCard
+                      order={order}
+                      onAdvance={onAdvance}
+                      advancing={advancing}
+                      driverName={order.assigned_driver_id ? drivers[order.assigned_driver_id] : undefined}
+                    />
                   </div>
                 ))}
               </div>
@@ -174,7 +219,12 @@ export default function DispatchGrid({ orders, onAdvance, advancing }: DispatchG
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 16 }}>
                 {dispatched.map((order, i) => (
                   <div key={order.id} style={{ animationDelay: `${i * 40}ms` }}>
-                    <DispatchCard order={order} onAdvance={onAdvance} advancing={advancing} />
+                    <DispatchCard
+                      order={order}
+                      onAdvance={onAdvance}
+                      advancing={advancing}
+                      driverName={order.assigned_driver_id ? drivers[order.assigned_driver_id] : undefined}
+                    />
                   </div>
                 ))}
               </div>

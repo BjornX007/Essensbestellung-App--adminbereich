@@ -35,7 +35,7 @@ const handleSignOut = async () => {
     {
       label: t("nav.orders"),
       href: "/orders",
-      badge: 12,
+      
       icon: (
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
@@ -135,11 +135,7 @@ const handleSignOut = async () => {
               )}
               <span style={{ position: "relative" }}>
                 {item.icon}
-                {item.badge && (
-                  <span style={{ position: "absolute", top: "-5px", right: "-8px", background: "#111827", color: "#fff", fontSize: "9px", fontWeight: 700, padding: "1px 5px", borderRadius: "99px" }}>
-                    {item.badge}
-                  </span>
-                )}
+               {"}"}
               </span>
               <span style={{ fontSize: "10px", fontWeight: active ? 600 : 400 }}>{item.label}</span>
             </button>
@@ -199,7 +195,7 @@ const handleSignOut = async () => {
               <span style={{ flexShrink: 0 }}>{item.icon}</span>
               <span style={{ display: "flex", alignItems: "center", flex: 1, gap: "8px", overflow: "hidden", opacity: collapsed ? 0 : 1, width: collapsed ? 0 : "auto", transition: "opacity 0.2s ease, width 0.3s cubic-bezier(0.4,0,0.2,1)" }}>
                 <span style={{ flex: 1, overflow: "hidden", textOverflow: "ellipsis" }}>{item.label}</span>
-                {item.badge && <span style={{ background: "#111827", color: "#ffffff", fontSize: "10px", fontWeight: 700, padding: "1px 7px", borderRadius: "99px" }}>{item.badge}</span>}
+              
               </span>
             </button>
           );
