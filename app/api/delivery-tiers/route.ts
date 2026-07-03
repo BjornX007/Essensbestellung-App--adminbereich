@@ -1,4 +1,4 @@
-// app/api/delivery-tiers/route.ts
+// app/api/delivery-settings/route.ts
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
@@ -7,47 +7,79 @@ import { sql } from "@/app/lib/db";
 import { withSecurity } from "@/app/lib/security";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// POST — create a new tier
+// GET — settings + tiers together
 // ─────────────────────────────────────────────────────────────────────────────
-export const POST = withSecurity(
-  async (req: NextRequest) => {
+export const GET = withSecurity(
+  async () => {
     try {
-      const body = (await req.json()) as {
-        max_distance_km: number;
-        min_order_eur: number;
-        delivery_fee_eur: number;
-        sort_order?: number;
-      };
+      const [settingsRows, tierRows] = await Promise.all([
+        sql`
+          SELECT id, is_accepting, order_time_rule, allowed_postals
+          FROM delivery_settings
+          WHERE id = 1
+        `,
+        sql`
+          SELECT id, max_distance_km, min_order_eur, delivery_fee_eur, sort_order
+          FROM delivery_tiers
+          ORDER BY sort_order ASC, max_distance_km ASC
+        `,
+      ]);
 
-      if (
-        typeof body.max_distance_km !== "number" ||
-        typeof body.min_order_eur !== "number" ||
-        typeof body.delivery_fee_eur !== "number"
-      ) {
-        return NextResponse.json(
-          { error: "max_distance_km, min_order_eur and delivery_fee_eur are required numbers" },
-          { status: 400 }
-        );
+      if (!settingsRows[0]) {
+        return NextResponse.json({ error: "Settings not found" }, { status: 404 });
       }
 
-      // Default sort_order: place after current last tier
-      let sortOrder = body.sort_order;
-      if (sortOrder === undefined) {
-        const [last] = await sql`SELECT COALESCE(MAX(sort_order), 0) AS max FROM delivery_tiers`;
-        sortOrder = (last.max as number) + 1;
-      }
-
-      const [row] = await sql`
-        INSERT INTO delivery_tiers (max_distance_km, min_order_eur, delivery_fee_eur, sort_order)
-        VALUES (${body.max_distance_km}, ${body.min_order_eur}, ${body.delivery_fee_eur}, ${sortOrder})
-        RETURNING id, max_distance_km, min_order_eur, delivery_fee_eur, sort_order
-      `;
-
-      return NextResponse.json({ tier: row }, { status: 201 });
+      return NextResponse.json({
+        settings: settingsRows[0],
+        tiers: tierRows,
+      });
     } catch (e) {
-      console.error("delivery-tiers POST:", e);
+      console.error("delivery-settings GET:", e);
       return NextResponse.json({ error: "Internal server error" }, { status: 500 });
     }
   },
-  { allowedMethods: ["POST"], rateLimit: { maxRequests: 30, windowMs: 60_000 } }
+  { allowedMethods: ["GET"] }
+);
+
+// ─────────────────────────────────────────────────────────────────────────────
+// PATCH — update core settings (no tiers here, tiers have own endpoints)
+// ─────────────────────────────────────────────────────────────────────────────
+export const PATCH = withSecurity(
+  async (req: NextRequest) => {
+    try {
+      const body = (await req.json()) as {
+        is_accepting?: boolean;
+        order_time_rule?: string;
+        allowed_postals?: string[];
+      };
+
+      const [current] = await sql`SELECT * FROM delivery_settings WHERE id = 1`;
+      if (!current) {
+        return NextResponse.json({ error: "Settings not found" }, { status: 404 });
+      }
+
+      const is_accepting   = body.is_accepting   ?? current.is_accepting;
+      const order_time_rule = body.order_time_rule ?? current.order_time_rule;
+      const allowed_postals = body.allowed_postals ?? current.allowed_postals;
+
+      const [row] = await sql`
+        UPDATE delivery_settings
+        SET
+          is_accepting    = ${is_accepting},
+          order_time_rule = ${order_time_rule},
+          allowed_postals = ${allowed_postals}
+        WHERE id = 1
+        RETURNING id, is_accepting, order_time_rule, allowed_postals
+      `;
+
+      return NextResponse.json({ settings: row });
+    } catch (e) {
+      console.error("delivery-settings PATCH:", e);
+      return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    }
+  },
+  {
+    allowedMethods: ["PATCH"],
+    rateLimit: { maxRequests: 30, windowMs: 60_000 },
+  }
 );
