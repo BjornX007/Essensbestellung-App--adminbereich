@@ -8,14 +8,14 @@ const LocaleContext = createContext<{
   locale: Locale;
   setLocale: (l: Locale) => void;
   t: (key: string) => string;
-}>({ locale: 'en', setLocale: () => {}, t: (k) => k });
+}>({ locale: 'de', setLocale: () => {}, t: (k) => k });
 
 export function LocaleProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>('en');
+  const [locale, setLocaleState] = useState<Locale>('de');
   const [messages, setMessages] = useState<Record<string, unknown>>({});
 
   useEffect(() => {
-    const saved = (localStorage.getItem('locale') as Locale) || 'en';
+    const saved = (localStorage.getItem('locale') as Locale) || 'de';
     setLocaleState(saved);
   }, []);
 
