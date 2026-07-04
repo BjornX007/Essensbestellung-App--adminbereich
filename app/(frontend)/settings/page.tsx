@@ -20,18 +20,18 @@ export default function SettingsHubPage() {
     {
       label: t("settings.sections.ordersPayments.label"),
       items: [
-        { href: "/settings/paypal",            icon: "💳", iconClass: "sky",  label: t("settings.sections.ordersPayments.paypal.label"),           desc: t("settings.sections.ordersPayments.paypal.desc"),           badge: { label: t("settings.badges.notConnected"), style: "gray" } },
+       // { href: "/settings/paypal",            icon: "💳", iconClass: "sky",  label: t("settings.sections.ordersPayments.paypal.label"),           desc: t("settings.sections.ordersPayments.paypal.desc"),           badge: { label: t("settings.badges.notConnected"), style: "gray" } },
         { href: "/settings/delivery-settings", icon: "📦", iconClass: "gray", label: t("settings.sections.ordersPayments.deliverySettings.label"), desc: t("settings.sections.ordersPayments.deliverySettings.desc"), badge: null },
       ],
     },
-    {
-      label: t("settings.sections.account.label"),
-      items: [
-        { href: "/settings/auth-security",   icon: "🔐", iconClass: "violet", label: t("settings.sections.account.authSecurity.label"),   desc: t("settings.sections.account.authSecurity.desc"),   badge: null },
-        { href: "/settings/contact-support", icon: "💬", iconClass: "sky",    label: t("settings.sections.account.contactSupport.label"), desc: t("settings.sections.account.contactSupport.desc"), badge: null },
-        { href: "/settings/danger-zone",     icon: "⚠️", iconClass: "red",   label: t("settings.sections.account.dangerZone.label"),     desc: t("settings.sections.account.dangerZone.desc"),     badge: { label: t("settings.badges.destructive"), style: "red" } },
-      ],
-    },
+   // {
+     // label: t("settings.sections.account.label"),
+      //items: [
+       // { href: "/settings/auth-security",   icon: "🔐", iconClass: "violet", label: t("settings.sections.account.authSecurity.label"),   desc: t("settings.sections.account.authSecurity.desc"),   badge: null },
+        //{ href: "/settings/contact-support", icon: "💬", iconClass: "sky",    label: t("settings.sections.account.contactSupport.label"), desc: t("settings.sections.account.contactSupport.desc"), badge: null },
+        //  /{ href: "/settings/danger-zone",     icon: "⚠️", iconClass: "red",   label: t("settings.sections.account.dangerZone.label"),     desc: t("settings.sections.account.dangerZone.desc"),     badge: { label: t("settings.badges.destructive"), style: "red" } },
+      //],
+    //},
   ];
 
   return (
@@ -142,16 +142,16 @@ export default function SettingsHubPage() {
           {/* ── Language switcher ── */}
           <div className="lang-switcher">
             <button
-              className={`lang-btn ${locale === "en" ? "active" : ""}`}
-              onClick={() => setLocale("en")}
-            >
-              EN
-            </button>
-            <button
               className={`lang-btn ${locale === "de" ? "active" : ""}`}
               onClick={() => setLocale("de")}
             >
               DE
+            </button>
+            <button
+              className={`lang-btn ${locale === "en" ? "active" : ""}`}
+              onClick={() => setLocale("en")}
+            >
+              EN
             </button>
           </div>
           {/* ── Sign out ── */}
