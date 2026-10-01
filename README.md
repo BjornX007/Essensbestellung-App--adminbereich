@@ -1,53 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Lieferdienst-Plattform – Admin-Dashboard und Fahrer-App
 
-## Getting Started
+Verwaltungsseite einer Lieferdienst-Plattform. Das Projekt enthält zwei Bereiche, die gemeinsam gehostet werden: das **Admin-Dashboard** für Küche und Betreiber sowie die **Fahrer-App** für die Auslieferung. Die Bestellseite für Kunden liegt in einem separaten Projekt (`lieferdienst-plattform-kundenapp`).
 
-First, run the development server:
+## Überblick
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+Kunde bestellt  →  Küche sieht die Bestellung  →  Bestellung wird einem Fahrer zugewiesen
+                                                              ↓
+              Admin erhält das Bargeld  ←  Fahrer liefert aus und führt die Kasse
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Admin-Dashboard
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Bestellungen (Küchenansicht)
+Alle eingehenden Bestellungen erscheinen hier live. Die Küche sieht, was zubereitet werden muss, und weist fertige Bestellungen einem Fahrer zu.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Speisekarte verwalten
+Eine eigene Seite zum Bearbeiten der Speisekarte:
+- Kategorien anlegen, umbenennen und löschen
+- Produkte hinzufügen, ändern und entfernen
+- Preise und Beschreibungen anpassen
 
-## Learn More
+Änderungen sind sofort auf der Kundenseite sichtbar.
 
-To learn more about Next.js, take a look at the following resources:
+### Einstellungen
+Hier legt der Betreiber Regeln fest, die direkt in die Bestelllogik der Kundenseite einfließen:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Einstellung | Wirkung |
+|---|---|
+| Maximaler Bestellwert | Bestellungen über dem Limit werden abgelehnt |
+| Maximale Lieferdistanz | Adressen außerhalb des Liefergebiets werden abgelehnt |
+| Name des Unternehmens | Wird auf der Bestellseite und in den Bestellungen angezeigt |
+| Öffnungszeiten | Außerhalb der Zeiten sind keine Bestellungen möglich |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Rollen und Zugriff
+Der Zugang ist rollenbasiert (Developer, Manager, Admin, Fahrer). Neue Nutzer registrieren sich nur über einen einmaligen Einladungslink.
 
-## Deploy on Vercel
+## Fahrer-App
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Die Fahrer-App ist für das Smartphone gedacht und zeigt nur das, was ein Fahrer unterwegs braucht.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Meine Lieferungen
+Der Fahrer sieht alle Bestellungen, die ihm aus der Küchenansicht zugewiesen wurden, inklusive Adresse und Bestellinhalt.
 
+### Navigation
+Pro Bestellung startet ein Button die Navigation zur Lieferadresse.
 
-src/components/
-  layout/     → sidebar, navbar, dashboard layout
-  ui/         → buttons, inputs, cards (reusable base)
-  stats/      → stat cards, KPI boxes
-  charts/     → charts (later)
-  forms/      → form components
-  table/      → data tables
-  modals/     → dialogs, popups
+### Gelieferte Bestellungen
+Eine eigene Seite listet alle bereits ausgelieferten Bestellungen auf.
 
-  app/admin/settings/
-├── page.tsx                     ← full-screen hub with 4 cards
-├── business-profile/page.tsx    ← 3-step register flow → edit view
-├── auth-security/page.tsx       ← password + 2FA + sessions
-├── contact-support/page.tsx     ← quick links, FAQ accordion, message form
-└── danger-zone/page.tsx         ← pause orders, export, reset menu, delete
+### Kasse
+Bei Barzahlung kassiert der Fahrer das Geld beim Kunden. Die Kasse zeigt ihm, wie viel Bargeld er eingenommen hat und am Ende an den Admin abgeben muss.
+
+## Technologie
+
+- Next.js (App Router), React, TypeScript
+- PostgreSQL (Neon), gemeinsame Datenbank mit der Kundenseite
+- Authentifizierung mit rollenbasierter Zugriffskontrolle
+- Deployment auf Vercel
+
+## Projektstruktur
+
+| Projekt | Inhalt |
+|---|---|
+| `lieferdienst-plattform-kundenapp` | Bestellseite für Kunden |
+| `lieferdienst-plattform-admin` | Admin-Dashboard und Fahrer-App (dieses Repository) |
+
